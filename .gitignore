@@ -1,0 +1,11 @@
+# Ignore the "processed" folder
+/processed/
+
+# Ignore the "renamed" folder
+/renamed/
+
+# Ignore the "test" folder
+/test/
+
+# Ignore the "train" folder
+/train/
