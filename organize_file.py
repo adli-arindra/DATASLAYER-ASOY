@@ -21,7 +21,7 @@ for subjects in os.listdir(path):
                     filename = str(label) + "_" + sub_category.split("_")[1] + "_" + str(count1)
                 else: 
                     label = 0
-                    count0 += 0
+                    count0 += 1
                     filename = str(label) + "_" + sub_category.split("_")[1] + "_" + str(count0)
 
                 print(current_path)

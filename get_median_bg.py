@@ -27,16 +27,15 @@ def calculate_pixel_medians_optimized(folder_path):
             file_path = os.path.join(folder_path, file_name)
             image = cv2.imread(file_path)
             blurred_image = cv2.GaussianBlur(image, (15, 15), 0)
-            gray_image = cv2.cvtColor(blurred_image, cv2.COLOR_BGR2GRAY)
 
-            if gray_image is not None:
+            if blurred_image is not None:
                 # Initialize the container on the first valid blurred_image
                 if pixel_values is None:
-                    height, width, channels = gray_image.shape
-                    pixel_values = np.zeros((height, width, channels), dtype=np.uint64)
+                    height, width, color = blurred_image.shape
+                    pixel_values = np.zeros((height, width, color), dtype=np.uint64)
 
                 # Sum pixel values across blurred_images
-                pixel_values += image
+                pixel_values += blurred_image
                 image_count += 1
             else:
                 print(f"Warning: Could not read {file_name}")
