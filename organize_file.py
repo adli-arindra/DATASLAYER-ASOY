@@ -3,7 +3,7 @@ import shutil
 
 path = "train/"
 
-output = "output/"
+output = "renamed/"
 
 count0 = 0
 count1 = 0
@@ -24,4 +24,5 @@ for subjects in os.listdir(path):
                     count0 += 0
                     filename = str(label) + "_" + sub_category.split("_")[1] + "_" + str(count0)
 
+                print(current_path)
                 shutil.copyfile(current_path, os.path.join(output, filename) + ".png")
