@@ -10,4 +10,5 @@
 # Ignore the "train" folder
 /train/
 
+# Ignore the "U2Net/saved_models" folder
 /U2Net/saved_models/
