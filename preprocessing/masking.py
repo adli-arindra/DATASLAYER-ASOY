@@ -5,21 +5,19 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from U2Net.model.u2net import U2NET
 
-def load_model(model, model_path, device):
-    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
-    model = model.to(device)
-    return model
+
+model = U2NET(in_ch=3, out_ch=1)
+model.load_state_dict(torch.load("preprocessing/U2Net/saved_models/u2net/u2net.pth", map_location="cpu", weights_only=True))
+model = model.to("cpu")
+model.eval()
+
 
 def normPRED(predicted_map):
     ma = np.max(predicted_map)
     mi = np.min(predicted_map)
     return (predicted_map - mi) / (ma - mi)
 
-def apply_mask(file_path, model_path="U2Net/saved_models/u2net/u2net.pth", device="cpu"):
-    model = U2NET(in_ch=3, out_ch=1)
-    model = load_model(model, model_path, device)
-    model.eval()
-
+def apply_mask(image: Image.Image, model_path="preprocessing/U2Net/saved_models/u2net/u2net.pth", device="cpu"):
     mean = torch.tensor([0.485, 0.456, 0.406])
     std = torch.tensor([0.229, 0.224, 0.225])
     resize_shape = (320, 320)
@@ -29,7 +27,6 @@ def apply_mask(file_path, model_path="U2Net/saved_models/u2net/u2net.pth", devic
         T.Normalize(mean=mean, std=std)
     ])
 
-    image = Image.open(file_path).convert("RGB")
     image_resized = image.resize(resize_shape, resample=Image.BILINEAR)
     image_tensor = transforms(image_resized).unsqueeze(0).to(device)
 

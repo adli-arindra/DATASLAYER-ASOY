@@ -11,4 +11,4 @@
 /train/
 
 # Ignore the "U2Net/saved_models" folder
-/U2Net/saved_models/
+/preprocessing/U2Net/saved_models/
