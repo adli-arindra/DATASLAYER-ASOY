@@ -1,14 +1,6 @@
-# Ignore the "processed" folder
 /processed/
-
-# Ignore the "renamed" folder
 /renamed/
-
-# Ignore the "test" folder
 /test/
-
-# Ignore the "train" folder
 /train/
-
-# Ignore the "U2Net/saved_models" folder
 /preprocessing/U2Net/saved_models/
+/processed_test/
