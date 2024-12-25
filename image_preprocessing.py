@@ -9,18 +9,18 @@ mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
 def get_landmarks(image_path:str = "") -> None:
-    with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
+    with mp_pose.Pose(min_detection_confidence=0, min_tracking_confidence=0) as pose:
         frame = cv2.imread(image_path)
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image.flags.writeable = False
         results = pose.process(image)
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        # try:
-        #     landmarks = results.pose_landmarks.landmark
-        #     return landmarks
-        # except:
-        #     return []
+        try:
+            landmarks = results.pose_landmarks.landmark
+            return landmarks
+        except:
+            return []
         
         mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
                                 mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
@@ -43,7 +43,7 @@ def generate_df(folder_path:str = "", output_path:str = "") -> None:
             row.append(landmark.x)
             row.append(landmark.y)
             row.append(landmark.z)
-        if ("test" in output_path): 
+        if ("test" not in output_path): 
             row.append(file[0])
         landmark_list.append(row)
         count += 1
@@ -80,6 +80,7 @@ def organize_file(input_path:str = "train/", output_path:str = "renamed/") -> No
 
 
 if __name__ == "__main__":
-    # generate_df("test/", "test.csv")
-    path = "test/02885090ec.jpg"
-    get_landmarks(path)
+    generate_df("renamed/", "train.csv")
+    generate_df("test/", "test.csv")
+    # path = "test/1ece69f362.jpg"
+    # get_landmarks(path)
